@@ -1,0 +1,17 @@
+apiVersion: v2
+appVersion: 0.11.8
+description: FlashMQ is a fast light-weight MQTT broker/server, designed to take good advantage of multi-CPU environments
+home: https://github.com/halfgaar/FlashMQ
+icon: https://github.com/halfgaar/FlashMQ/raw/master/FlashMQ.png
+keywords:
+- flashmq
+- MQTT
+dependencies:
+- name: common
+  repository: https://github.com/truenas/charts/tree/master/library/common/2207.0.0
+  version: 2207.0.0
+name: flashmq
+sources:
+- https://github.com/TrueBrain/truenas-charts/tree/main/charts/flashmq
+- https://github.com/halfgaar/FlashMQ
+version: 1.0.0

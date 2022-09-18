@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "flashmq-config"
+  annotations:
+    rollme: {{ randAlphaNum 5 | quote }}
+data:
+  flashmq.conf: |-
+    allow_anonymous true
+    storage_dir /data
+
+    listen {
+      protocol mqtt
+      inet_protocol ip4
+      inet4_bind_address 0.0.0.0
+
+      port 1883
+    }
+
+    listen {
+      protocol websockets
+      inet_protocol ip4
+      inet4_bind_address 0.0.0.0
+
+      port 8080
+    }
