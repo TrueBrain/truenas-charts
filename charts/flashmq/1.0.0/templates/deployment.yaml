@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flashmq
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flashmq
+  template:
+    metadata:
+      labels:
+        app: flashmq
+      annotations:
+        prometheus.io/scrape: 'false'
+    spec:
+      containers:
+      - name: flashmq
+        image: halfgaar/flashmq:0.11.5
+        ports:
+        - name: mqtt
+          containerPort: 1883
+        - name: http
+          containerPort: 8080

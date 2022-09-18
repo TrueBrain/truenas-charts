@@ -1,0 +1,25 @@
+apiVersion: v2
+appVersion: "0.11.5"
+deprecated: false
+description: FlashMQ is a fast light-weight MQTT broker/server, designed to take good advantage of multi-CPU environments
+home: https://github.com/TrueBrain/truenas-charts/
+icon: https://truecharts.org/img/hotlink-ok/chart-icons/mosquitto.png
+keywords:
+  - flashmq
+  - MQTT
+kubeVersion: ">=1.16.0-0"
+maintainers:
+  - email: github@truebrain.nl
+    name: TrueBrain
+    url: https://github.com/TrueBrain
+name: flashmq
+sources:
+  - https://github.com/TrueBrain/truenas-charts/tree/main/charts/flashmq
+  - https://github.com/halfgaar/FlashMQ
+type: application
+version: 1.0.0
+annotations:
+  truecharts.org/catagories: |
+    - homeautomation
+  truecharts.org/SCALE-support: "true"
+  truecharts.org/grade: U
