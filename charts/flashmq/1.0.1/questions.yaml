@@ -35,6 +35,11 @@ questions:
       schema:
         type: string
         required: true
+    - variable: loadBalancerVlan15IP
+      label: LoadBalancer VLAN15 IP
+      schema:
+        type: string
+        required: true
 
 - variable: ingress
   label: Ingress

@@ -31,3 +31,20 @@ spec:
     port: 1883
   type: LoadBalancer
   loadBalancerIP: {{ .Values.network.loadBalancerIP }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: flashmq-mqtt-vlan15
+  labels: {{ include "common.labels" . | nindent 4 }}
+
+spec:
+  selector:
+    {{ include "common.labels.selectorLabels" . | nindent 4 }}
+  externalTrafficPolicy: Cluster
+  ports:
+  - name: mqtt
+    protocol: TCP
+    port: 1883
+  type: LoadBalancer
+  loadBalancerIP: {{ .Values.network.loadBalancerVlan15IP }}

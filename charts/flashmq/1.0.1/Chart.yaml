@@ -14,4 +14,4 @@ name: flashmq
 sources:
 - https://github.com/TrueBrain/truenas-charts/tree/main/charts/flashmq
 - https://github.com/halfgaar/FlashMQ
-version: 1.0.0
+version: 1.0.1
