@@ -68,7 +68,7 @@ questions:
             type: path
             hidden: true
             editable: false
-            default: /data
+            default: /var/lib/influxdb2
         - variable: hostPathEnabled
           label: Enable Host Path for InfluxDB2 Data Volume
           schema:
