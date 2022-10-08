@@ -44,7 +44,7 @@ spec: {{ include "common.deployment.common_spec" . | nindent 2 }}
         - name: HOMIJ_MITM_INFLUXDB_TOKEN
           value: admintoken
         - name: HOMIJ_MITM_BASEN_ID
-          value: ${{ .Values.application.basenID }}
+          value: {{ .Values.application.basenID }}
 
         ports:
         - name: https
