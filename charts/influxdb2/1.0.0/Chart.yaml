@@ -1,0 +1,16 @@
+apiVersion: v2
+appVersion: 2.4.0
+description: InfluxDB is the time series platform for developers.
+home: https://www.influxdata.com/
+icon: https://www.influxdata.com/wp-content/uploads/cubo.svg
+keywords:
+- influxdb
+dependencies:
+- name: common
+  repository: https://github.com/truenas/charts/tree/master/library/common/2207.0.0
+  version: 2207.0.0
+name: influxdb2
+sources:
+- https://github.com/TrueBrain/truenas-charts/tree/main/charts/influxdb2
+- https://github.com/influxdata/influxdb
+version: 1.0.0

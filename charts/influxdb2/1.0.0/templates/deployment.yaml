@@ -1,0 +1,35 @@
+{{ include "common.storage.hostPathValidate" .Values }}
+{{ include "common.deployment.common_config" . | nindent 0 }}
+spec: {{ include "common.deployment.common_spec" . | nindent 2 }}
+  template: {{ include "common.deployment.pod.metadata" . | nindent 4 }}
+    spec:
+      hostname: {{ template "common.names.fullname" . }}
+
+      containers:
+      - name: {{ .Chart.Name }}
+        {{ include "common.containers.imageConfig" .Values.image | nindent 8 }}
+        {{ include "common.resources.limitation" . | nindent 8 }}
+
+        env:
+        - name: INFLUXDB_REPORTING_DISABLED
+          value: "true"
+        - name: DOCKER_INFLUXDB_INIT_USERNAME
+          value: "admin"
+        - name: DOCKER_INFLUXDB_INIT_PASSWORD
+          value: "adminadmin"
+        - name: DOCKER_INFLUXDB_INIT_ORG
+          value: "Local"
+        - name: DOCKER_INFLUXDB_INIT_BUCKET
+          value: "metrics"
+        - name: DOCKER_INFLUXDB_INIT_ADMIN_TOKEN
+          value: "admintoken"
+        - name: DOCKER_INFLUXDB_INIT_MODE
+          value: "setup"
+
+        ports:
+        - name: http
+          containerPort: 8086
+
+        volumeMounts: {{ include "common.storage.configureAppVolumeMountsInContainer" .Values | nindent 8 }}
+
+      volumes: {{ include "common.storage.configureAppVolumes" .Values | nindent 6 }}
