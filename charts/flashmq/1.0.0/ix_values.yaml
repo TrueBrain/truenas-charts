@@ -1,18 +1,4 @@
 image:
-  repository: halfgaar/flashmq
-  tag: 0.11.5
+  repository: truebrain/flashmq
+  tag: 0.11.2
   pullPolicy: IfNotPresent
-
-service:
-  main:
-    ports:
-      main:
-        port: 1883
-        targetPort: 1883
-
-auth:
-  # -- By enabling this, `allow_anonymous` gets set to `false` in the mosquitto config.
-  enabled: false
-
-portal:
-  enabled: false

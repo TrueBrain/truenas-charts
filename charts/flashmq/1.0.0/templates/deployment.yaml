@@ -1,25 +1,39 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: flashmq
-
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: flashmq
-  template:
-    metadata:
-      labels:
-        app: flashmq
-      annotations:
-        prometheus.io/scrape: 'false'
+{{ include "common.storage.hostPathValidate" .Values }}
+{{ include "common.deployment.common_config" . | nindent 0 }}
+spec: {{ include "common.deployment.common_spec" . | nindent 2 }}
+  template: {{ include "common.deployment.pod.metadata" . | nindent 4 }}
     spec:
+      hostname: {{ template "common.names.fullname" . }}
+
+      # FlashMQ docker runs under user 999, and a new volume is created
+      # under user 0. So we need to make sure FlashMQ docker can write in
+      # /data by simply changing permissions.
+      initContainers:
+      - name: chown-data
+        image: alpine:3.6
+        command:
+        - "sh"
+        - "-c"
+        - "chown 999:999 /data"
+        volumeMounts: {{ include "common.storage.configureAppVolumeMountsInContainer" .Values | nindent 8 }}
+
       containers:
-      - name: flashmq
-        image: halfgaar/flashmq:0.11.5
+      - name: {{ .Chart.Name }}
+        {{ include "common.containers.imageConfig" .Values.image | nindent 8 }}
+        {{ include "common.resources.limitation" . | nindent 8 }}
+
         ports:
         - name: mqtt
           containerPort: 1883
         - name: http
           containerPort: 8080
+
+        volumeMounts: {{ include "common.storage.configureAppVolumeMountsInContainer" .Values | nindent 8 }}
+        - name: config
+          mountPath: /etc/flashmq
+          readOnly: true
+
+      volumes: {{ include "common.storage.configureAppVolumes" .Values | nindent 6 }}
+      - name: config
+        configMap:
+          name: flashmq-config
