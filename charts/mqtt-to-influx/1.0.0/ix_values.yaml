@@ -1,0 +1,4 @@
+image:
+  repository: ghcr.io/truebrain/mqtt_to_influx
+  tag: 1.0.1
+  pullPolicy: IfNotPresent

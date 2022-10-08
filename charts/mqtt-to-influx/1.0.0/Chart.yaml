@@ -1,0 +1,17 @@
+apiVersion: v2
+appVersion: 1.0.1
+description: Sometimes you just want to bridge MQTT to InfluxDB2
+home: https://github.com/TrueBrain/mqtt_to_influx
+icon: https://avatars.githubusercontent.com/u/1663690
+keywords:
+- mqtt
+- influx
+dependencies:
+- name: common
+  repository: https://github.com/truenas/charts/tree/master/library/common/2207.0.0
+  version: 2207.0.0
+name: mqtt-to-influx
+sources:
+- https://github.com/TrueBrain/truenas-charts/tree/main/charts/mqtt-to-influx
+- https://github.com/TrueBrain/mqtt_to_influx
+version: 1.0.0

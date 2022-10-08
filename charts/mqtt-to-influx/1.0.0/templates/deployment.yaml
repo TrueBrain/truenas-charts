@@ -1,0 +1,29 @@
+{{ include "common.storage.hostPathValidate" .Values }}
+{{ include "common.deployment.common_config" . | nindent 0 }}
+spec: {{ include "common.deployment.common_spec" . | nindent 2 }}
+  template: {{ include "common.deployment.pod.metadata" . | nindent 4 }}
+    spec:
+      hostname: {{ template "common.names.fullname" . }}
+
+      containers:
+      - name: {{ .Chart.Name }}
+        {{ include "common.containers.imageConfig" .Values.image | nindent 8 }}
+        {{ include "common.resources.limitation" . | nindent 8 }}
+
+        env:
+        - name: MQTT_TO_INFLUX_LOG_FOLDER
+          value: /data
+        - name: MQTT_TO_INFLUX_MQTT_URL
+          value: mqtt://flashmq.ix-flashmq:1883/
+        - name: MQTT_TO_INFLUX_MQTT_SUBSCRIBE_TOPIC
+          value: truenetwork/+/+
+        - name: MQTT_TO_INFLUX_INFLUXDB_URL
+          value: "http://influxdb.ix-influxdb2:8086"
+        - name: MQTT_TO_INFLUX_INFLUXDB_ORG
+          value: Local
+        - name: MQTT_TO_INFLUX_INFLUXDB_TOKEN
+          value: admintoken
+
+        volumeMounts: {{ include "common.storage.configureAppVolumeMountsInContainer" .Values | nindent 8 }}
+
+      volumes: {{ include "common.storage.configureAppVolumes" .Values | nindent 6 }}
