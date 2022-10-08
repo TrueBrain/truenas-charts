@@ -1,0 +1,55 @@
+{{ include "common.storage.hostPathValidate" .Values }}
+{{ include "common.deployment.common_config" . | nindent 0 }}
+spec: {{ include "common.deployment.common_spec" . | nindent 2 }}
+  template: {{ include "common.deployment.pod.metadata" . | nindent 4 }}
+    spec:
+      hostname: {{ template "common.names.fullname" . }}
+
+      # Ensure that the certificates exist at first boot.
+      initContainers:
+      - name: generate-certificate
+        image: debian
+        command:
+        - "sh"
+        - "-c"
+        - |
+          if [ ! -e "/cert/selfsigned.key" ]; then
+            apt-get update
+            apt-get install -y --no-install-recommends openssl
+            openssl req -nodes -x509 -newkey rsa:4096 -keyout /cert/selfsigned.key -out /cert/selfsigned.cert -days 3650 -subj '/C=NL'
+          fi
+        volumeMounts: {{ include "common.storage.configureAppVolumeMountsInContainer" .Values | nindent 8 }}
+
+      containers:
+      - name: {{ .Chart.Name }}
+        {{ include "common.containers.imageConfig" .Values.image | nindent 8 }}
+        {{ include "common.resources.limitation" . | nindent 8 }}
+
+        args:
+          - "--port"
+          - "443"
+          - "--dont-forward"
+
+        env:
+        - name: HOMIJ_MITM_CERT_FILE
+          value: /cert/selfsigned.cert
+        - name: HOMIJ_MITM_KEY_FILE
+          value: /cert/selfsigned.key
+        - name: HOMIJ_MITM_LOG_FOLDER
+          value: /data
+        - name: HOMIJ_MITM_INFLUXDB_URL
+          value: "http://influxdb.ix-influxdb2:8086"
+        - name: HOMIJ_MITM_INFLUXDB_ORG
+          value: Local
+        - name: HOMIJ_MITM_INFLUXDB_TOKEN
+          value: admintoken
+        - name: HOMIJ_MITM_BASEN_ID
+          value: ${{ .Values.application.basenID }}
+
+        ports:
+        - name: https
+          containerPort: 443
+
+        volumeMounts: {{ include "common.storage.configureAppVolumeMountsInContainer" .Values | nindent 8 }}
+
+      volumes: {{ include "common.storage.configureAppVolumes" .Values | nindent 6 }}

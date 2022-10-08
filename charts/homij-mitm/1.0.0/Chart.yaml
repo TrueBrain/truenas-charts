@@ -1,0 +1,16 @@
+apiVersion: v2
+appVersion: 1.3.1
+description: Homij man-in-the-middle forwarder
+home: https://github.com/TrueBrain/homij_mitm
+icon: https://avatars.githubusercontent.com/u/1663690
+keywords:
+- homij
+dependencies:
+- name: common
+  repository: https://github.com/truenas/charts/tree/master/library/common/2207.0.0
+  version: 2207.0.0
+name: homij-mitm
+sources:
+- https://github.com/TrueBrain/truenas-charts/tree/main/charts/homij-mitm
+- https://github.com/TrueBrain/homij_mitm
+version: 1.0.0
