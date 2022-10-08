@@ -38,7 +38,7 @@ spec: {{ include "common.deployment.common_spec" . | nindent 2 }}
         - name: HOMIJ_MITM_LOG_FOLDER
           value: /data
         - name: HOMIJ_MITM_INFLUXDB_URL
-          value: "http://influxdb.ix-influxdb2:8086"
+          value: "http://influxdb.ix-influxdb:8086"
         - name: HOMIJ_MITM_INFLUXDB_ORG
           value: Local
         - name: HOMIJ_MITM_INFLUXDB_TOKEN

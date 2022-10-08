@@ -18,7 +18,7 @@ spec: {{ include "common.deployment.common_spec" . | nindent 2 }}
         - name: MQTT_TO_INFLUX_MQTT_SUBSCRIBE_TOPIC
           value: truenetwork/+/+
         - name: MQTT_TO_INFLUX_INFLUXDB_URL
-          value: "http://influxdb.ix-influxdb2:8086"
+          value: "http://influxdb.ix-influxdb:8086"
         - name: MQTT_TO_INFLUX_INFLUXDB_ORG
           value: Local
         - name: MQTT_TO_INFLUX_INFLUXDB_TOKEN
