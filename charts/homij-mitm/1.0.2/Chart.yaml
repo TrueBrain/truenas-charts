@@ -13,4 +13,4 @@ name: homij-mitm
 sources:
 - https://github.com/TrueBrain/truenas-charts/tree/main/charts/homij-mitm
 - https://github.com/TrueBrain/homij_mitm
-version: 1.0.1
+version: 1.0.2
