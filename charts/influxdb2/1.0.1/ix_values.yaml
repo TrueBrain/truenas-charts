@@ -1,4 +1,4 @@
 image:
   repository: influxdb
-  tag: 2.4.0
+  tag: 2.6.1
   pullPolicy: IfNotPresent
