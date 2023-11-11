@@ -13,4 +13,4 @@ name: influxdb2
 sources:
 - https://github.com/TrueBrain/truenas-charts/tree/main/charts/influxdb2
 - https://github.com/influxdata/influxdb
-version: 1.0.1
+version: 1.0.2
